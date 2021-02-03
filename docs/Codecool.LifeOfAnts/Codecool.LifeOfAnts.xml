@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codecool.LifeOfAnts</name>
+    </assembly>
+    <members>
+        <member name="T:Codecool.LifeOfAnts.Program">
+            <summary>
+                Simulation main class
+            </summary>
+        </member>
+        <member name="M:Codecool.LifeOfAnts.Program.Main">
+            <summary>
+                Main method
+            </summary>
+        </member>
+        <member name="T:Codecool.LifeOfAnts.Direction">
+            <summary>
+                Direction enum
+            </summary>
+        </member>
+        <member name="F:Codecool.LifeOfAnts.Direction.North">
+            <summary>
+                North direction
+            </summary>
+        </member>
+        <member name="F:Codecool.LifeOfAnts.Direction.East">
+            <summary>
+                East direction
+            </summary>
+        </member>
+        <member name="F:Codecool.LifeOfAnts.Direction.South">
+            <summary>
+                South direction
+            </summary>
+        </member>
+        <member name="F:Codecool.LifeOfAnts.Direction.West">
+            <summary>
+                West direction
+            </summary>
+        </member>
+        <member name="T:Codecool.LifeOfAnts.Position">
+            <summary>
+                Position struct
+            </summary>
+        </member>
+        <member name="M:Codecool.LifeOfAnts.Position.#ctor(System.Int32,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Codecool.LifeOfAnts.Position"/> struct.
+            </summary>
+            <param name="x">X coordinate</param>
+            <param name="y">Y coordinate</param>
+        </member>
+        <member name="P:Codecool.LifeOfAnts.Position.X">
+            <summary>
+                Gets X coordinate
+            </summary>
+        </member>
+        <member name="P:Codecool.LifeOfAnts.Position.Y">
+            <summary>
+                Gets Y coordinate
+            </summary>
+        </member>
+    </members>
+</doc>
