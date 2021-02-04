@@ -2,7 +2,7 @@ namespace Codecool.LifeOfAnts
 {
     public static class Utilis
     {
-        public static (int amountDrones, int amountSoldiers, int amountWorkers) GetNumberOfAnts(int colonyWidth)
+        public static (int amountDrones, int amountSoldiers, int amountWorkers) SetNumberOfAnts(int colonyWidth)
         {
             int colonySize = colonyWidth * colonyWidth;
             float percentageOfSettlement = 0.45f;
