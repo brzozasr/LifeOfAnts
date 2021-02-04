@@ -16,18 +16,18 @@ namespace Codecool.LifeOfAnts
         public Colony(int width)
         {
             Width = width;
-            _queenPosition = Width.GetQueenPosition();
+            _queenPosition = Width.SetQueenPosition();
             Ant queen = new Queen(_queenPosition, Direction.West, this);
             _listOfAnts.Add(queen);
         }
 
-        public void GenerateAnts(int amountWorkers, int amountSoldiers, int amountDrones)
+        public void GenerateAnts(int amountDrones, int amountSoldiers, int amountWorkers)
         {
             int[] antsArray = new int[3]
             {
-                amountWorkers,
+                amountDrones,
                 amountSoldiers,
-                amountDrones
+                amountWorkers
             };
 
             for (int i = 0; i < antsArray.Length; i++)
@@ -36,36 +36,40 @@ namespace Codecool.LifeOfAnts
                 {
                     if (i == 0)
                     {
-                        Ant worker = new Worker(
-                            Width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                        Ant drone = new Drone(
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
-                        _listOfAnts.Add(worker);
+                        _listOfAnts.Add(drone);
                     }
                     else if (i == 1)
                     {
                         Ant soldier = new Soldier(
-                            Width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
                         _listOfAnts.Add(soldier);
                     }
                     else if (i == 2)
                     {
-                        Ant drone = new Drone(
-                            Width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                        Ant worker = new Worker(
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
-                        _listOfAnts.Add(drone);
+                        _listOfAnts.Add(worker);
                     }
                 }
             }
-            
+
             Extensions.ClearPositionList();
         }
 
         public void Update()
         {
+            foreach (var ant in this._listOfAnts)
+            {
+                ant.Move();
+            }
         }
 
         public void Display()

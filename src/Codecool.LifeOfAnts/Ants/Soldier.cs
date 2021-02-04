@@ -8,7 +8,6 @@ namespace Codecool.LifeOfAnts.Ants
 
         public override void Move()
         {
-            
         }
     }
 }

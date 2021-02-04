@@ -16,9 +16,31 @@ namespace Codecool.LifeOfAnts
             var ants = Utilis.GetNumberOfAnts(colonyWidth);
 
             Colony colony = new Colony(colonyWidth);
-            colony.GenerateAnts(ants.amountWorkers, ants.amountSoldiers, ants.amountDrones);
-
+            colony.GenerateAnts(ants.amountDrones, ants.amountSoldiers, ants.amountWorkers);
+            Console.Clear();
             colony.Display();
+
+            bool isRunning = true;
+
+            while (isRunning)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    colony.Update();
+                    Console.Clear();
+                    colony.Display();
+                }
+                else if (keyInfo.Modifiers == ConsoleModifiers.Control && keyInfo.Key == ConsoleKey.Q)
+                {
+                    isRunning = false;
+                }
+                else
+                {
+                    Console.Clear();
+                    colony.Display();
+                }
+            }
         }
     }
 }
