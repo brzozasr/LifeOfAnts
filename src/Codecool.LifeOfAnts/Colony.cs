@@ -11,11 +11,13 @@ namespace Codecool.LifeOfAnts
     {
         private readonly int _width;
         private List<Ant> _listOfAnts = new List<Ant>();
+        private readonly Position _queenPosition;
 
         public Colony(int width)
         {
             _width = width;
-            Ant queen = new Queen(_width.GetQueenPosition(), Direction.West, this);
+            _queenPosition = _width.GetQueenPosition();
+            Ant queen = new Queen(_queenPosition, Direction.West, this);
             _listOfAnts.Add(queen);
         }
 

@@ -12,9 +12,12 @@ namespace Codecool.LifeOfAnts
         /// </summary>
         public static void Main()
         {
-            Colony colony = new Colony(21);
-            colony.GenerateAnts(100, 50, 5);
-            
+            int colonyWidth = 21;
+            var ants = Utilis.GetNumberOfAnts(colonyWidth);
+
+            Colony colony = new Colony(colonyWidth);
+            colony.GenerateAnts(ants.amountWorkers, ants.amountSoldiers, ants.amountDrones);
+
             colony.Display();
         }
     }
