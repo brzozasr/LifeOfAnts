@@ -46,6 +46,14 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
 
             return antPosition;
         }
+        
+        public static Position MoveDirection(this Direction direction, Position position)
+        {
+            if (direction == Direction.East)
+            {
+                
+            }
+        }
 
         public static Direction GetRandomDirection()
         {

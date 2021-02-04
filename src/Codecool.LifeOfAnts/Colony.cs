@@ -9,14 +9,14 @@ namespace Codecool.LifeOfAnts
 {
     public class Colony
     {
-        private readonly int _width;
+        public int Width { get; }
         private List<Ant> _listOfAnts = new List<Ant>();
         private readonly Position _queenPosition;
 
         public Colony(int width)
         {
-            _width = width;
-            _queenPosition = _width.GetQueenPosition();
+            Width = width;
+            _queenPosition = Width.GetQueenPosition();
             Ant queen = new Queen(_queenPosition, Direction.West, this);
             _listOfAnts.Add(queen);
         }
@@ -37,7 +37,7 @@ namespace Codecool.LifeOfAnts
                     if (i == 0)
                     {
                         Ant worker = new Worker(
-                            _width.GetRandomAntPosition(),
+                            Width.GetRandomAntPosition(),
                             Extensions.GetRandomDirection(),
                             this);
                         _listOfAnts.Add(worker);
@@ -45,7 +45,7 @@ namespace Codecool.LifeOfAnts
                     else if (i == 1)
                     {
                         Ant soldier = new Soldier(
-                            _width.GetRandomAntPosition(),
+                            Width.GetRandomAntPosition(),
                             Extensions.GetRandomDirection(),
                             this);
                         _listOfAnts.Add(soldier);
@@ -53,7 +53,7 @@ namespace Codecool.LifeOfAnts
                     else if (i == 2)
                     {
                         Ant drone = new Drone(
-                            _width.GetRandomAntPosition(),
+                            Width.GetRandomAntPosition(),
                             Extensions.GetRandomDirection(),
                             this);
                         _listOfAnts.Add(drone);
@@ -73,9 +73,9 @@ namespace Codecool.LifeOfAnts
             StringBuilder sb = new StringBuilder();
             string row = string.Empty;
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < Width; j++)
                 {
                     if (_listOfAnts.Exists(ant => ant.Position.X == i
                                                   && ant.Position.Y == j))
@@ -145,7 +145,7 @@ namespace Codecool.LifeOfAnts
         public bool ValidPosition(Position position)
         {
             Position topLeft = new Position(0, 0);
-            Position bottomRight = new Position(_width - 1, _width - 1);
+            Position bottomRight = new Position(Width - 1, Width - 1);
 
             return position.X >= topLeft.X && position.X <= bottomRight.X &&
                    position.Y >= topLeft.Y && position.Y <= bottomRight.Y;
