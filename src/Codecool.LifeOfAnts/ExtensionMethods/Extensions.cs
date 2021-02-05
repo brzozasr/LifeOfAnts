@@ -51,9 +51,9 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
         {
             if (direction == Direction.East)
             {
-                if (position.X < colonyWidth - 1)
+                if (position.Y < colonyWidth - 1)
                 {
-                    return new Position(position.X + 1, position.Y);
+                    return new Position(position.X, position.Y + 1);
                 }
                 else
                 {
@@ -61,17 +61,6 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
                 }
             }
             else if (direction == Direction.West)
-            {
-                if (position.X > 0)
-                {
-                    return new Position(position.X - 1, position.Y);
-                }
-                else
-                {
-                    return position;
-                }
-            }
-            else if (direction == Direction.North)
             {
                 if (position.Y > 0)
                 {
@@ -82,11 +71,22 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
                     return position;
                 }
             }
+            else if (direction == Direction.North)
+            {
+                if (position.X > 0)
+                {
+                    return new Position(position.X - 1, position.Y);
+                }
+                else
+                {
+                    return position;
+                }
+            }
             else if (direction == Direction.South)
             {
-                if (position.Y < colonyWidth - 1)
+                if (position.X < colonyWidth - 1)
                 {
-                    return new Position(position.X, position.Y + 1);
+                    return new Position(position.X + 1, position.Y);
                 }
                 else
                 {
