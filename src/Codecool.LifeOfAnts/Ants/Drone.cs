@@ -6,15 +6,19 @@ namespace Codecool.LifeOfAnts.Ants
 {
     public class Drone : Ant
     {
+        public string DroneSaid { get; private set; }
+
         private int _counter = 0;
         private bool _isMatingSuccessfully = false;
-        
+
         public Drone(Position position, Direction direction, Colony colony) : base(position, direction, colony)
         {
         }
 
         public override void Move()
         {
+            DroneSaid = string.Empty;
+
             if (!_isMatingSuccessfully)
             {
                 SetDroneDirection();
@@ -27,12 +31,14 @@ namespace Codecool.LifeOfAnts.Ants
                 if (this.IsDroneReachedStopPosition(Position) && Colony.Queen.MatingMood > 0)
                 {
                     RandomBorderPosition();
+                    DroneSaid = ":(";
                 }
                 else if (this.IsDroneReachedStopPosition(Position) && Colony.Queen.MatingMood == 0)
                 {
                     int maxMatingMood = 101;
                     Colony.Queen.MatingMood = maxMatingMood.SetQueenMatingMood();
                     _isMatingSuccessfully = true;
+                    DroneSaid = "HALLELUJAH!";
                 }
             }
             else

@@ -79,6 +79,7 @@ namespace Codecool.LifeOfAnts
         public void Display()
         {
             StringBuilder sb = new StringBuilder();
+            string said = string.Empty;
             string row = string.Empty;
 
             for (int i = 0; i < Width; i++)
@@ -90,19 +91,19 @@ namespace Codecool.LifeOfAnts
                     {
                         var oneAnt = _listOfAnts.Where(ant => ant.Position.X == i
                                                               && ant.Position.Y == j).ToList();
-                        if (oneAnt.ElementAt(0).GetType().Name == "Worker")
+                        if (oneAnt.ElementAt(0) is Worker)
                         {
                             row += $"|W";
                         }
-                        else if (oneAnt.ElementAt(0).GetType().Name == "Soldier")
+                        else if (oneAnt.ElementAt(0) is Soldier)
                         {
                             row += $"|S";
                         }
-                        else if (oneAnt.ElementAt(0).GetType().Name == "Drone")
+                        else if (oneAnt.ElementAt(0) is Drone)
                         {
                             row += $"|D";
                         }
-                        else if (oneAnt.ElementAt(0).GetType().Name == "Queen")
+                        else if (oneAnt.ElementAt(0) is Queen)
                         {
                             row += $"|Q";
                         }
@@ -113,9 +114,15 @@ namespace Codecool.LifeOfAnts
                     }
                 }
 
+                said = GetDroneSaid();
+
                 if (i == 0)
                 {
                     sb.Append($"{row}|  Queen Mating Mood: {Queen.MatingMood}\n");
+                }
+                else if (i == 1 && !string.IsNullOrEmpty(said))
+                {
+                    sb.Append($"{row}|  Drone said: {said}\n");
                 }
                 else
                 {
@@ -158,13 +165,24 @@ namespace Codecool.LifeOfAnts
             }
         }
 
-        public bool ValidPosition(Position position)
+        private string GetDroneSaid()
         {
-            Position topLeft = new Position(0, 0);
-            Position bottomRight = new Position(Width - 1, Width - 1);
+            string said = string.Empty;
 
-            return position.X >= topLeft.X && position.X <= bottomRight.X &&
-                   position.Y >= topLeft.Y && position.Y <= bottomRight.Y;
+            foreach (var ant in _listOfAnts)
+            {
+                if (ant is Drone)
+                {
+                    said = ((Drone) ant).DroneSaid;
+
+                    if (!string.IsNullOrEmpty(said))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return said;
         }
     }
 }
