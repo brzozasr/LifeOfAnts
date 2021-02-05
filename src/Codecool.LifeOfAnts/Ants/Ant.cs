@@ -2,9 +2,9 @@ namespace Codecool.LifeOfAnts.Ants
 {
     public abstract class Ant
     {
-        internal Position Position;
-        internal Direction Direction;
-        internal Colony Colony;
+        public Position Position { get; protected internal set; }
+        public Direction Direction { get; protected internal set; }
+        public Colony Colony { get; protected internal set; }
 
         public Ant(Position position, Direction direction, Colony colony)
         {

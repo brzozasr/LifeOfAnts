@@ -9,23 +9,25 @@ namespace Codecool.LifeOfAnts
 {
     public class Colony
     {
-        private readonly int _width;
+        public int Width { get; }
         private List<Ant> _listOfAnts = new List<Ant>();
+        public Position QueenPosition { get; }
 
         public Colony(int width)
         {
-            _width = width;
-            Ant queen = new Queen(_width.GetQueenPosition(), Direction.West, this);
+            Width = width;
+            QueenPosition = Width.SetQueenPosition();
+            Ant queen = new Queen(QueenPosition, Direction.West, this);
             _listOfAnts.Add(queen);
         }
 
-        public void GenerateAnts(int amountWorkers, int amountSoldiers, int amountDrones)
+        public void GenerateAnts(int amountDrones, int amountSoldiers, int amountWorkers)
         {
             int[] antsArray = new int[3]
             {
-                amountWorkers,
+                amountDrones,
                 amountSoldiers,
-                amountDrones
+                amountWorkers
             };
 
             for (int i = 0; i < antsArray.Length; i++)
@@ -34,36 +36,40 @@ namespace Codecool.LifeOfAnts
                 {
                     if (i == 0)
                     {
-                        Ant worker = new Worker(
-                            _width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                        Ant drone = new Drone(
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
-                        _listOfAnts.Add(worker);
+                        _listOfAnts.Add(drone);
                     }
                     else if (i == 1)
                     {
                         Ant soldier = new Soldier(
-                            _width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
                         _listOfAnts.Add(soldier);
                     }
                     else if (i == 2)
                     {
-                        Ant drone = new Drone(
-                            _width.GetRandomAntPosition(),
-                            Extensions.GetRandomDirection(),
+                        Ant worker = new Worker(
+                            Width.SetRandomAntPosition(),
+                            Extensions.SetRandomDirection(),
                             this);
-                        _listOfAnts.Add(drone);
+                        _listOfAnts.Add(worker);
                     }
                 }
             }
-            
+
             Extensions.ClearPositionList();
         }
 
         public void Update()
         {
+            foreach (var ant in this._listOfAnts)
+            {
+                ant.Move();
+            }
         }
 
         public void Display()
@@ -71,9 +77,9 @@ namespace Codecool.LifeOfAnts
             StringBuilder sb = new StringBuilder();
             string row = string.Empty;
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < Width; j++)
                 {
                     if (_listOfAnts.Exists(ant => ant.Position.X == i
                                                   && ant.Position.Y == j))
@@ -143,7 +149,7 @@ namespace Codecool.LifeOfAnts
         public bool ValidPosition(Position position)
         {
             Position topLeft = new Position(0, 0);
-            Position bottomRight = new Position(_width - 1, _width - 1);
+            Position bottomRight = new Position(Width - 1, Width - 1);
 
             return position.X >= topLeft.X && position.X <= bottomRight.X &&
                    position.Y >= topLeft.Y && position.Y <= bottomRight.Y;

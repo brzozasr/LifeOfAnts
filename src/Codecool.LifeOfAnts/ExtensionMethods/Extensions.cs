@@ -7,7 +7,7 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
     {
         private static List<Position> _positions = new List<Position>();
 
-        public static Position GetQueenPosition(this int colonyWidth)
+        public static Position SetQueenPosition(this int colonyWidth)
         {
             if (colonyWidth % 2 > 0)
             {
@@ -25,7 +25,7 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
             }
         }
 
-        public static Position GetRandomAntPosition(this int colonyWidth)
+        public static Position SetRandomAntPosition(this int colonyWidth)
         {
             Random random = new Random();
             bool isOnList = true;
@@ -47,7 +47,59 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
             return antPosition;
         }
 
-        public static Direction GetRandomDirection()
+        public static Position MoveToDirection(this Position position, Direction direction, int colonyWidth)
+        {
+            if (direction == Direction.East)
+            {
+                if (position.Y < colonyWidth - 1)
+                {
+                    return new Position(position.X, position.Y + 1);
+                }
+                else
+                {
+                    return position;
+                }
+            }
+            else if (direction == Direction.West)
+            {
+                if (position.Y > 0)
+                {
+                    return new Position(position.X, position.Y - 1);
+                }
+                else
+                {
+                    return position;
+                }
+            }
+            else if (direction == Direction.North)
+            {
+                if (position.X > 0)
+                {
+                    return new Position(position.X - 1, position.Y);
+                }
+                else
+                {
+                    return position;
+                }
+            }
+            else if (direction == Direction.South)
+            {
+                if (position.X < colonyWidth - 1)
+                {
+                    return new Position(position.X + 1, position.Y);
+                }
+                else
+                {
+                    return position;
+                }
+            }
+            else
+            {
+                return position;
+            }
+        }
+
+        public static Direction SetRandomDirection()
         {
             Random random = new Random();
             Direction randomDirection = (Direction) random.Next(0, 4);
