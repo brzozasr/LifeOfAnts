@@ -19,6 +19,7 @@ namespace Codecool.LifeOfAnts
             colony.GenerateAnts(ants.amountDrones, ants.amountSoldiers, ants.amountWorkers);
             Console.Clear();
             colony.Display();
+            InfoText();
 
             bool isRunning = true;
 
@@ -30,6 +31,7 @@ namespace Codecool.LifeOfAnts
                     colony.Update();
                     Console.Clear();
                     colony.Display();
+                    InfoText();
                 }
                 else if (keyInfo.Modifiers == ConsoleModifiers.Control && keyInfo.Key == ConsoleKey.Q)
                 {
@@ -39,8 +41,16 @@ namespace Codecool.LifeOfAnts
                 {
                     Console.Clear();
                     colony.Display();
+                    InfoText();
                 }
             }
+        }
+
+        public static void InfoText()
+        {
+            string infoText = @"Press ""Enter"" to update the anthill.
+To exit, press ""CTRL + Q""";
+            Console.WriteLine(infoText);
         }
     }
 }

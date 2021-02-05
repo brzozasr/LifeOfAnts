@@ -99,6 +99,12 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
             }
         }
 
+        public static int SetQueenMatingMood(this int maxMatingMood)
+        {
+            Random random = new Random();
+            return random.Next(50, maxMatingMood);
+        }
+
         public static Direction SetRandomDirection()
         {
             Random random = new Random();
