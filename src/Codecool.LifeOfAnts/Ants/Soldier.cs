@@ -8,7 +8,7 @@ namespace Codecool.LifeOfAnts.Ants
     public class Soldier : Ant
     {
         private bool _isInitDirectionSet = false;
-        
+
         public Soldier(Position position, Direction direction, Colony colony) : base(position, direction, colony)
         {
         }

@@ -46,8 +46,8 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
 
             return antPosition;
         }
-        
-        public static Position MoveToDirection(this Position position,  Direction direction, int colonyWidth)
+
+        public static Position MoveToDirection(this Position position, Direction direction, int colonyWidth)
         {
             if (direction == Direction.East)
             {
