@@ -12,7 +12,7 @@ namespace Codecool.LifeOfAnts
         /// </summary>
         public static void Main()
         {
-            int colonyWidth = 21;
+            int colonyWidth = 5;
             var ants = Utilis.SetNumberOfAnts(colonyWidth);
 
             Colony colony = new Colony(colonyWidth);

@@ -10,15 +10,17 @@ namespace Codecool.LifeOfAnts
     public class Colony
     {
         public int Width { get; }
-        private List<Ant> _listOfAnts = new List<Ant>();
         public Position QueenPosition { get; }
+        public Queen Queen { get; }
+
+        private List<Ant> _listOfAnts = new List<Ant>();
 
         public Colony(int width)
         {
             Width = width;
             QueenPosition = Width.SetQueenPosition();
-            Ant queen = new Queen(QueenPosition, Direction.West, this);
-            _listOfAnts.Add(queen);
+            Queen = new Queen(QueenPosition, Direction.West, this);
+            _listOfAnts.Add(Queen);
         }
 
         public void GenerateAnts(int amountDrones, int amountSoldiers, int amountWorkers)
@@ -70,6 +72,8 @@ namespace Codecool.LifeOfAnts
             {
                 ant.Move();
             }
+
+            Queen.UpdateQueenMatingMood();
         }
 
         public void Display()
@@ -109,7 +113,15 @@ namespace Codecool.LifeOfAnts
                     }
                 }
 
-                sb.Append($"{row}|\n");
+                if (i == 0)
+                {
+                    sb.Append($"{row}|  Queen Mating Mood: {Queen.MatingMood}\n");
+                }
+                else
+                {
+                    sb.Append($"{row}|\n");
+                }
+
                 row = string.Empty;
             }
 
