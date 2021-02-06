@@ -28,15 +28,15 @@ namespace Codecool.LifeOfAnts.Ants
                     Position = Position.MoveToDirection(Direction, Colony.Width);
                 }
 
-                if (this.IsDroneReachedStopPosition(Position) && Colony.Queen.MatingMood > 0)
+                if (this.IsDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood > 0)
                 {
                     RandomBorderPosition();
                     DroneSaid = ":(";
                 }
-                else if (this.IsDroneReachedStopPosition(Position) && Colony.Queen.MatingMood == 0)
+                else if (this.IsDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood == 0)
                 {
                     int maxMatingMood = 101;
-                    Colony.Queen.MatingMood = maxMatingMood.SetQueenMatingMood();
+                    ((Queen) Colony.Queen).MatingMood = maxMatingMood.SetQueenMatingMood();
                     _isMatingSuccessfully = true;
                     DroneSaid = "HALLELUJAH!";
                 }

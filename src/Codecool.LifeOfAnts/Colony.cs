@@ -11,7 +11,7 @@ namespace Codecool.LifeOfAnts
     {
         public int Width { get; }
         public Position QueenPosition { get; }
-        public Queen Queen { get; }
+        public Ant Queen { get; }
 
         private List<Ant> _listOfAnts = new List<Ant>();
 
@@ -73,7 +73,7 @@ namespace Codecool.LifeOfAnts
                 ant.Move();
             }
 
-            Queen.UpdateQueenMatingMood();
+            ((Queen) Queen).UpdateQueenMatingMood();
         }
 
         public void Display()
@@ -118,7 +118,7 @@ namespace Codecool.LifeOfAnts
 
                 if (i == 0)
                 {
-                    sb.Append($"{row}|  Queen Mating Mood: {Queen.MatingMood}\n");
+                    sb.Append($"{row}|  Queen Mating Mood: {((Queen) Queen).MatingMood}\n");
                 }
                 else if (i == 1 && !string.IsNullOrEmpty(said))
                 {
