@@ -171,9 +171,9 @@ namespace Codecool.LifeOfAnts
 
             foreach (var ant in _listOfAnts)
             {
-                if (ant is Drone)
+                if (ant is Drone drone)
                 {
-                    said = ((Drone) ant).DroneSaid;
+                    said = drone.DroneSaid;
 
                     if (!string.IsNullOrEmpty(said))
                     {
