@@ -25,43 +25,9 @@ namespace Codecool.LifeOfAnts
 
         public void GenerateAnts(int amountDrones, int amountSoldiers, int amountWorkers)
         {
-            int[] antsArray = new int[3]
-            {
-                amountDrones,
-                amountSoldiers,
-                amountWorkers
-            };
-
-            for (int i = 0; i < antsArray.Length; i++)
-            {
-                for (int j = 0; j < antsArray[i]; j++)
-                {
-                    if (i == 0)
-                    {
-                        Ant drone = new Drone(
-                            Width.SetRandomAntPosition(),
-                            Extensions.SetRandomDirection(),
-                            this);
-                        _listOfAnts.Add(drone);
-                    }
-                    else if (i == 1)
-                    {
-                        Ant soldier = new Soldier(
-                            Width.SetRandomAntPosition(),
-                            Extensions.SetRandomDirection(),
-                            this);
-                        _listOfAnts.Add(soldier);
-                    }
-                    else if (i == 2)
-                    {
-                        Ant worker = new Worker(
-                            Width.SetRandomAntPosition(),
-                            Extensions.SetRandomDirection(),
-                            this);
-                        _listOfAnts.Add(worker);
-                    }
-                }
-            }
+            GenerateAntsType<Drone>(amountDrones);
+            GenerateAntsType<Soldier>(amountSoldiers);
+            GenerateAntsType<Worker>(amountWorkers);
 
             Extensions.ClearPositionList();
         }
@@ -74,6 +40,24 @@ namespace Codecool.LifeOfAnts
             }
 
             ((Queen) Queen).UpdateQueenMatingMood();
+        }
+
+        private void GenerateAntsType<T>(int amountAntsOfType)
+            where T : Ant
+        {
+            for (int i = 0; i < amountAntsOfType; i++)
+            {
+                var parameters = new object[]
+                {
+                    Width.SetRandomAntPosition(),
+                    Extensions.SetRandomDirection(),
+                    this,
+                };
+
+                var ant = Activator.CreateInstance(typeof(T), parameters) as T;
+
+                _listOfAnts.Add(ant);
+            }
         }
 
         public void Display()
@@ -132,6 +116,31 @@ namespace Codecool.LifeOfAnts
                 row = string.Empty;
             }
 
+            ColorAnts(sb);
+        }
+
+        private string GetDroneSaid()
+        {
+            string said = string.Empty;
+
+            foreach (var ant in _listOfAnts)
+            {
+                if (ant is Drone drone)
+                {
+                    said = drone.DroneSaid;
+
+                    if (!string.IsNullOrEmpty(said))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return said;
+        }
+
+        private void ColorAnts(StringBuilder sb)
+        {
             foreach (var charSb in sb.ToString())
             {
                 if (charSb == 'W')
@@ -163,26 +172,6 @@ namespace Codecool.LifeOfAnts
                     Console.Write(charSb);
                 }
             }
-        }
-
-        private string GetDroneSaid()
-        {
-            string said = string.Empty;
-
-            foreach (var ant in _listOfAnts)
-            {
-                if (ant is Drone drone)
-                {
-                    said = drone.DroneSaid;
-
-                    if (!string.IsNullOrEmpty(said))
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return said;
         }
     }
 }
