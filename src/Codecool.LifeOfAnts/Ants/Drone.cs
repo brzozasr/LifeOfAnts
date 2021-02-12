@@ -23,17 +23,17 @@ namespace Codecool.LifeOfAnts.Ants
             {
                 SetDroneDirection();
 
-                if (!this.IsDroneReachedStopPosition(Position))
+                if (!this.HasDroneReachedStopPosition(Position))
                 {
-                    Position = Position.MoveToDirection(Direction, Colony.Width);
+                    Position = Position.GetNeighbour(Direction, Colony.Width);
                 }
 
-                if (this.IsDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood > 0)
+                if (this.HasDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood > 0)
                 {
                     RandomBorderPosition();
                     DroneSaid = ":(";
                 }
-                else if (this.IsDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood == 0)
+                else if (this.HasDroneReachedStopPosition(Position) && ((Queen) Colony.Queen).MatingMood == 0)
                 {
                     int maxMatingMood = 101;
                     ((Queen) Colony.Queen).MatingMood = maxMatingMood.SetQueenMatingMood();
@@ -75,7 +75,7 @@ namespace Codecool.LifeOfAnts.Ants
             }
         }
 
-        private bool IsDroneReachedStopPosition(Position dronePosition)
+        private bool HasDroneReachedStopPosition(Position dronePosition)
         {
             Position queenPosition = Colony.QueenPosition;
             Position westStopPosition = new Position(queenPosition.X, queenPosition.Y - 1);

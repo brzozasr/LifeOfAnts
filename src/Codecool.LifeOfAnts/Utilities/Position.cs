@@ -25,5 +25,24 @@
         ///     Gets Y coordinate
         /// </summary>
         public int Y { get; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (obj is Position position)
+            {
+                return this.X == position.X && this.Y == position.Y;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static Position Zero => new Position(0, 0);
     }
 }
