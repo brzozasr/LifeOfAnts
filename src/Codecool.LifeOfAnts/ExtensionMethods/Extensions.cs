@@ -47,57 +47,19 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
             return antPosition;
         }
 
-        public static Position MoveToDirection(this Position position, Direction direction, int colonyWidth)
-        {
-            if (direction == Direction.East)
+        public static Position GetNeighbour(this Position position, Direction direction, int colonyWidth) =>
+            direction switch
             {
-                if (position.Y < colonyWidth - 1)
-                {
-                    return new Position(position.X, position.Y + 1);
-                }
-                else
-                {
-                    return position;
-                }
-            }
-            else if (direction == Direction.West)
-            {
-                if (position.Y > 0)
-                {
-                    return new Position(position.X, position.Y - 1);
-                }
-                else
-                {
-                    return position;
-                }
-            }
-            else if (direction == Direction.North)
-            {
-                if (position.X > 0)
-                {
-                    return new Position(position.X - 1, position.Y);
-                }
-                else
-                {
-                    return position;
-                }
-            }
-            else if (direction == Direction.South)
-            {
-                if (position.X < colonyWidth - 1)
-                {
-                    return new Position(position.X + 1, position.Y);
-                }
-                else
-                {
-                    return position;
-                }
-            }
-            else
-            {
-                return position;
-            }
-        }
+                Direction.East when position.Y < colonyWidth - 1 => new Position(position.X, position.Y + 1),
+                Direction.East => position,
+                Direction.West when position.Y > 0 => new Position(position.X, position.Y - 1),
+                Direction.West => position,
+                Direction.North when position.X > 0 => new Position(position.X - 1, position.Y),
+                Direction.North => position,
+                Direction.South when position.X < colonyWidth - 1 => new Position(position.X + 1, position.Y),
+                Direction.South => position,
+                _ => position
+            };
 
         public static int SetQueenMatingMood(this int maxMatingMood)
         {
@@ -105,7 +67,7 @@ namespace Codecool.LifeOfAnts.ExtensionMethods
             return random.Next(50, maxMatingMood);
         }
 
-        public static Direction SetRandomDirection()
+        public static Direction GetRandomDirection()
         {
             Random random = new Random();
             Direction randomDirection = (Direction) random.Next(0, 4);

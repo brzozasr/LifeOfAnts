@@ -10,8 +10,9 @@ namespace Codecool.LifeOfAnts
     public class Colony
     {
         public int Width { get; }
+        // TODO
         public Position QueenPosition { get; }
-        public Ant Queen { get; }
+        public Queen Queen { get; }
 
         private List<Ant> _listOfAnts = new List<Ant>();
 
@@ -50,7 +51,7 @@ namespace Codecool.LifeOfAnts
                 var parameters = new object[]
                 {
                     Width.SetRandomAntPosition(),
-                    Extensions.SetRandomDirection(),
+                    Extensions.GetRandomDirection(),
                     this,
                 };
 
@@ -73,21 +74,21 @@ namespace Codecool.LifeOfAnts
                     if (_listOfAnts.Exists(ant => ant.Position.X == i
                                                   && ant.Position.Y == j))
                     {
-                        var oneAnt = _listOfAnts.Where(ant => ant.Position.X == i
-                                                              && ant.Position.Y == j).ToList();
-                        if (oneAnt.ElementAt(0) is Worker)
+                        var oneAnt = _listOfAnts.FirstOrDefault(ant => ant.Position.X == i
+                                                              && ant.Position.Y == j);
+                        if (oneAnt is Worker)
                         {
                             row += $"|W";
                         }
-                        else if (oneAnt.ElementAt(0) is Soldier)
+                        else if (oneAnt is Soldier)
                         {
                             row += $"|S";
                         }
-                        else if (oneAnt.ElementAt(0) is Drone)
+                        else if (oneAnt is Drone)
                         {
                             row += $"|D";
                         }
-                        else if (oneAnt.ElementAt(0) is Queen)
+                        else if (oneAnt is Queen)
                         {
                             row += $"|Q";
                         }
@@ -102,7 +103,7 @@ namespace Codecool.LifeOfAnts
 
                 if (i == 0)
                 {
-                    sb.Append($"{row}|  Queen Mating Mood: {((Queen) Queen).MatingMood}\n");
+                    sb.Append($"{row}|  Queen Mating Mood: {Queen.MatingMood}\n");
                 }
                 else if (i == 1 && !string.IsNullOrEmpty(said))
                 {

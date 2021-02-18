@@ -10,8 +10,8 @@ namespace Codecool.LifeOfAnts.Ants
 
         public override void Move()
         {
-            this.Direction = Extensions.SetRandomDirection();
-            this.Position = this.Position.MoveToDirection(this.Direction, this.Colony.Width);
+            this.Direction = Extensions.GetRandomDirection();
+            this.Position = this.Position.GetNeighbour(this.Direction, this.Colony.Width);
         }
     }
 }

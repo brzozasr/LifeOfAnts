@@ -7,7 +7,7 @@ namespace Codecool.LifeOfAnts.Ants
 {
     public class Soldier : Ant
     {
-        private bool _isInitDirectionSet = false;
+        private bool _isInitDirectionSet;
 
         public Soldier(Position position, Direction direction, Colony colony) : base(position, direction, colony)
         {
@@ -21,7 +21,7 @@ namespace Codecool.LifeOfAnts.Ants
                 _isInitDirectionSet = true;
             }
 
-            Position = Position.MoveToDirection(Direction, Colony.Width);
+            Position = Position.GetNeighbour(Direction, Colony.Width);
             SetSoldierDirection();
         }
 
@@ -31,7 +31,7 @@ namespace Codecool.LifeOfAnts.Ants
             int randomDirection = random.Next(0, 2);
             List<Direction> direction = new List<Direction>();
 
-            if (Position.X == 0 && Position.Y == 0)
+            if (Position.Equals(Position.Zero))
             {
                 Direction = Direction.East;
             }
